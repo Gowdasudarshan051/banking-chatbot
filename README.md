@@ -264,6 +264,14 @@ Before deploying this to a live banking environment, ensure the following steps 
 - [ ] **LLM Security:** Lock down the Ollama endpoint behind an authenticated reverse proxy.
 
 ---
+
+## 🙏 Acknowledgments & Credits
+
+This project was developed as a solution to a real-world problem statement provided by the **MUFG (Mitsubishi UFJ Financial Group)** team. 
+
+Special thanks to **TNS India Foundation** for their invaluable support. We successfully completed our AI/ML course through their foundation, which was generously funded by **MUFG**. This project stands as a testament to the knowledge and opportunities gained through this collaborative initiative.
+
+---
 <div align="center">
   <i>Built with ❤️ for secure and intelligent banking operations.</i>
 </div>
