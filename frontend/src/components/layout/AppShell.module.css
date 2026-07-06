@@ -1,0 +1,174 @@
+.shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a1929;
+  position: relative;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: #0d1f35;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  transition: width 0.25s ease;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.open      { width: 220px; }
+.collapsed { width: 64px; }
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.brandMark { flex-shrink: 0; }
+
+.brandName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e8f4fd;
+  letter-spacing: 0.04em;
+  font-family: 'Georgia', serif;
+  white-space: nowrap;
+}
+
+.nav {
+  flex: 1;
+  padding: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  color: #7ab3d4;
+  font-size: 0.9rem;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.navItem:hover { background: rgba(79,195,247,0.08); color: #b3e5fc; }
+
+.navItem.active {
+  background: rgba(79,195,247,0.14);
+  color: #4fc3f7;
+  font-weight: 600;
+}
+
+.navIcon { font-size: 1.1rem; flex-shrink: 0; }
+.navLabel { font-size: 0.88rem; }
+
+.sidebarFooter {
+  padding: 0.75rem 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.userCard {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.5rem;
+}
+
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1565c0, #0288d1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.userName {
+  font-size: 0.82rem;
+  color: #b3d9f0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #5a8fa8;
+  font-size: 0.85rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.logoutBtn:hover { background: rgba(255,100,80,0.1); color: #ff8a80; }
+
+.toggleBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 18px; height: 40px;
+  background: #1a3a5c;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  color: #4fc3f7;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: left 0.25s;
+  padding: 0;
+}
+
+.open    ~ .toggleBtn,
+.sidebar.open    + .toggleBtn { left: 220px; }
+.collapsed + .toggleBtn { left: 64px; }
+
+.main {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

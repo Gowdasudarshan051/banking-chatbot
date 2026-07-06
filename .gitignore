@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Uploads & Data
+uploads/
+mock_onedrive/
+faiss_index/
+
+# OS files
+.DS_Store
+Thumbs.db
