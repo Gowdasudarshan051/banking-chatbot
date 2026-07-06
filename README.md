@@ -41,30 +41,37 @@
 
 ## 🏛️ System Architecture
 
-```text
-┌─────────────────────────────────────────────────────────────────────┐
-│                         React Frontend (Vite + TypeScript)          │
-│  Login → Role-based UI → Chat / Documents / OneDrive / Admin        │
-└───────────────────────┬─────────────────────────────────────────────┘
-                        │ REST + SSE (streaming)
-┌───────────────────────▼─────────────────────────────────────────────┐
-│                    FastAPI Backend                                  │
-│  /api/auth   /api/chat   /api/documents   /api/onedrive  /api/admin │
-│                                                                     │
-│  ┌──────────┐  ┌─────────────────┐  ┌──────────────────────────┐    │
-│  │ JWT Auth │  │ Document        │  │ OneDrive Service         │    │
-│  │ + RBAC   │  │ Processor       │  │ (Graph API / Mock)       │    │
-│  └──────────┘  │ PDF/DOCX/PPTX   │  └──────────────────────────┘    │
-│                │ XLSX / Images   │                                  │
-│                │ Tesseract OCR   │  ┌──────────────────────────┐    │
-│                └────────┬────────┘  │ Ollama Service           │    │
-│                         │           │ Mistral (localhost:11434)│    │
-│                ┌────────▼────────┐  └──────────────────────────┘    │
-│                │ FAISS Vector DB │                                  │
-│                │ sentence-trans  │                                  │
-│                │ GPU embeddings  │                                  │
-│                └─────────────────┘                                  │
-└─────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    %% Define Styles
+    classDef frontend fill:#2563eb,stroke:#1d4ed8,stroke-width:2px,color:#fff
+    classDef backend fill:#059669,stroke:#047857,stroke-width:2px,color:#fff
+    classDef ai fill:#d97706,stroke:#b45309,stroke-width:2px,color:#fff
+    classDef db fill:#7c3aed,stroke:#6d28d9,stroke-width:2px,color:#fff
+
+    %% Components
+    Client["💻 React Frontend\n(Vite + TypeScript)"]:::frontend
+    
+    subgraph CoreBackend [FastAPI Backend]
+        direction TB
+        Auth["🔒 JWT Auth & RBAC"]:::backend
+        DocProc["📄 Document Processor\n(PyMuPDF, OCR)"]:::backend
+        OD["☁️ OneDrive Integration\n(Graph API)"]:::backend
+    end
+
+    LLM["🧠 Ollama / Mistral\n(Local LLM on port 11434)"]:::ai
+    VectorDB[/"🗄️ FAISS Vector DB\n(sentence-transformers)"/]:::db
+
+    %% Connections
+    Client <==>|"REST + SSE (Streaming)"| Auth
+    
+    Auth --> DocProc
+    Auth --> OD
+    
+    DocProc ==>|"Chunk & Embed"| VectorDB
+    Auth ==>|"Query & Retrieve Context"| VectorDB
+    VectorDB -.->|"Augmented Prompt"| LLM
+    LLM -.->|"Streaming Response"| Auth
 ```
 
 ---
